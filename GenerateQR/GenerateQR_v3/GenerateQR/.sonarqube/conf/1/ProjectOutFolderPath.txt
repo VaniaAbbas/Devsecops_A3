@@ -1,0 +1,1 @@
+C:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\.sonarqube\out\1

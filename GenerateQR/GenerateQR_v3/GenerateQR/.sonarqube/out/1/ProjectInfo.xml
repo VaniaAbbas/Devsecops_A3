@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>GenerateQR.Tests</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Test</ProjectType>
+  <ProjectGuid>ab668904-dcc9-4a3c-abd3-bce30f87a00c</ProjectGuid>
+  <FullPath>C:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\GenerateQR.Tests\GenerateQR.Tests.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="C:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\.sonarqube\conf\1\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">C:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\.sonarqube\out\1\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">C:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\.sonarqube\out\1</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>net9.0</TargetFramework>
+</ProjectInfo>

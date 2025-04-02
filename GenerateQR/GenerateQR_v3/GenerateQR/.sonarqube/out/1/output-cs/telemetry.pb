@@ -1,0 +1,1 @@
+†RpC:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\GenerateQR.Tests\GenerateQR.Tests.csproj¢net9.0òCSharp13

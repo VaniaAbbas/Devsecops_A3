@@ -1,0 +1,1 @@
+zRdC:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\GenerateQR\GenerateQR.csproj¢net8.0òCSharp12

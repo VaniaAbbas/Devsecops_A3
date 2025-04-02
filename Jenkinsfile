@@ -4,10 +4,10 @@ pipeline {
 	environment {
         SONARQUBE_URL = 'http://localhost:9000'
         SONARQUBE_TOKEN = credentials('sonarqube-token') // Replace with your credential ID
-        GITHUB_REPO = 'mhussain-arch/devesecops-assignment-3'
+        GITHUB_REPO = 'VaniaAbbas/Devsecops_A3'
         GITHUB_CREDENTIALS = credentials('GITHUB_CREDENTIALS')
         GITHUB_TOKEN = credentials("GITHUB_API_KEY")
-        EMAIL_RECIPIENT = 'k213584@nu.edu.pk'
+        EMAIL_RECIPIENT = 'vaniaabbas481@gmail.com'
     }
 	stages{
 		stage('Checkout'){
@@ -15,7 +15,7 @@ pipeline {
 				script {
 					failedStage = "Checkout"  //Set stage name
                 }
-				git branch: 'main', credentialsId: 'GITHUB_CREDENTIALS', url: 'git@github.com:mhussain-arch/devsecops-assignment-3.git'
+				git branch: 'main', credentialsId: 'GITHUB_CREDENTIALS', url: 'https://github.com/VaniaAbbas/Devsecops_A3.git'
 			}
 		}
 		stage('Dependency Check') {
@@ -23,21 +23,14 @@ pipeline {
 	            script {
 	        		failedStage = "Dependency Check"  //Set stage name
 	        	}
-                bat 'dependency-check.bat --project "QR-code" --scan "C:\\repos\\devsecops-assignment-3" --format JSON --format HTML --format XML --out "C:\\Users\\jenkins\\Desktop\\dc-report" --nvdApiKey b39f9daa-8ec6-4d10-bffc-f3c7fea9fd0b --log dependency-check.log'
+                bat 'dependency-check.bat --project "Utilities" --scan "C:\\assignment\\Devsecops_A3" --format JSON --format HTML --format XML --out "C:\\Users\\jenkins\\Desktop\\report" --nvdApiKey b39f9daa-8ec6-4d10-bffc-f3c7fea9fd0b --log dependency-check.log'
 			}
 		}
 		stage('Dependency Check Report') {
             steps {
-                // dependencyCheckPublisher( //not working in my case
-				//     pattern: "C:\\Users\\jenkins\\Desktop\\dc-report\\dependency-check-report.xml",
-				//     failedTotalCritical: 1,  // Pipeline fails if at least 1 Critical issue exists
-				//     unstableTotalCritical: 1
-				//     //failedTotalHigh: 3,      // Pipeline fails if 3+ High issues exist
-				//     //failedTotalMedium: 5     // Pipeline fails if 5+ Medium issues exist
-				// )
                 script {
             		failedStage = "Dependency Check Report"  //Set stage name
-                    def reportFile = "C:\\Users\\jenkins\\Desktop\\dc-report\\dependency-check-report.json"
+                    def reportFile = "C:\\Users\\jenkins\\Desktop\\report\\dependency-check-report.json"
                     def allIssues = []
                     def criticalIssues = [] 
 
@@ -68,45 +61,7 @@ pipeline {
                         return issues
                     }
 
-                    // for (dep in jsonReport.dependencies) {
-                    //     for (vuln in dep.vulnerabilities) {
-                    //         def issueTitle = "[${vuln.severity}] ${vuln.name}"
-                    //         def issueBody = "${vuln.name}: ${vuln.description}"
-                    //         allIssues.add([title: issueTitle, body: issueBody])
-                    //         if (vuln.severity?.trim().toLowerCase() == "critical") {
-		            //             criticalIssues.add(issueTitle + ": " + issueBody)
-		            //         }
-                    //     }
-                    // }
-
-                    //Call the closure like a function: doesIssueExist(issue.title)
-                    // def existingIssues = getExistingIssues()
-					// for (issue in allIssues) {
-					//     if (!existingIssues.any { it.title == issue.title }) {
-					//         withCredentials([string(credentialsId: 'GITHUB_API_KEY', variable: 'GITHUB_TOKEN')]) {
-					//             //Write JSON payload to a file
-					//             def jsonPayload = """
-					//             {
-					//                 "title": "${issue.title}",
-					//                 "body": "${issue.body.replace('"', '\\"')}",
-					//                 "labels": ["security"]
-					//             }
-					//             """
-					//             writeFile file: "payload.json", text: jsonPayload
-
-					//             //Use `-d @payload.json` instead of inline JSON
-					//             bat """
-					//                 curl.exe -X POST -H "Authorization: token %GITHUB_TOKEN%" ^
-					//                 -H "Accept: application/vnd.github.v3+json" ^
-					//                 https://api.github.com/repos/${GITHUB_REPO}/issues ^
-					//                 -d @payload.json
-					//             """
-					//         }
-					//     } else {
-					//         echo "Issue '${issue.title}' already exists in GitHub. Skipping creation."
-					//     }
-					// }
-					def htmlReport = "C:\\Users\\jenkins\\Desktop\\dc-report\\dependency-check-report.html"
+					def htmlReport = "C:\\Users\\jenkins\\Desktop\\report\\dependency-check-report.html"
 					if (!fileExists(htmlReport)) {
 		                error "Dependency-Check HTML report not found. Skipping email."
 		            }
@@ -122,7 +77,7 @@ pipeline {
 
 							    **Critical Issues Found:** ${criticalIssues.size()}
 							    """,
-		                    attachmentsPattern: "C:\\Users\\jenkins\\Desktop\\dc-report\\dependency-check-report.html"
+		                    attachmentsPattern: "C:\\Users\\jenkins\\Desktop\\report\\dependency-check-report.html"
 		                )
 					}
 		            if (!criticalIssues.isEmpty()) {
@@ -153,7 +108,7 @@ pipeline {
 		        withSonarQubeEnv('SonarQube') {
 					withCredentials([string(credentialsId: 'sonarqube-token', variable: 'SONARQUBE_TOKEN')]) {
 						dir('GenerateQR/GenerateQR_v3/GenerateQR') {
-							bat 'dotnet sonarscanner begin /k:"DevSecops" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token=%SONARQUBE_TOKEN%'
+							bat 'dotnet sonarscanner begin /k:"DevSecOpsA3" /d:sonar.host.url="http://localhost:9000"  /d:sonar.token=%SONARQUBE_TOKEN%'
 							bat 'dotnet build --configuration Release'
 							bat 'dotnet sonarscanner end /d:sonar.token=%SONARQUBE_TOKEN%'
 						}
@@ -171,7 +126,7 @@ pipeline {
 		                def maxAttempts = 2 // Maximum retries
 		                def attempt = 0
 		                def sonarHost = "http://localhost:9000"  // Update if different
-		                def sonarProjectKey = "DevSecops"  // Update with your project key
+		                def sonarProjectKey = "DevSecOpsA3"  // Update with your project key
 		                def sonarDashboardURL = "${sonarHost}/dashboard?id=${sonarProjectKey}"
 
 		                while (attempt < maxAttempts) {
@@ -296,8 +251,8 @@ pipeline {
 					dir('GenerateQR/GenerateQR_v3/GenerateQR') {
 						bat """
 						docker login -u %DOCKERHUB_USERNAME% -p %DOCKERHUB_PASSWORD%
-						docker build -t mrrobogen/devsecops-3:latest .
-						docker push mrrobogen/devsecops-3:latest
+						docker build -t vaniaabbas/DevSecOpsA3:latest .
+						docker push vaniaabbas/devsecopsa3:latest
 						"""
 					}
 				}
@@ -309,9 +264,9 @@ pipeline {
 		        script {
 		    		failedStage = "Pull Request"  // ✅ Set stage name
 		            def GITHUB_TOKEN = credentials('GITHUB_API_KEY')  // GitHub Token stored in Jenkins credentials
-		            def GITHUB_USERNAME = "mhussain-arch"  // Replace with your GitHub username
-		            def GITHUB_EMAIL = "k213584@nu.edu.pk"
-		            def REPO = "mhussain-arch/devsecops-assignment-3"  // Replace with your repo name
+		            def GITHUB_USERNAME = "VaniaAbbas"  // Replace with your GitHub username
+		            def GITHUB_EMAIL = "k214753@nu.edu.pk"
+		            def REPO = "VaniaAbbas/Devsecops_A3"  // Replace with your repo name
 		            def SOURCE_BRANCH = "main"
 		            def TARGET_BRANCH = "deployment"
 		            def PR_TITLE = "Automated PR: Merge ${SOURCE_BRANCH} into ${TARGET_BRANCH}"

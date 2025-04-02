@@ -1,0 +1,7 @@
+﻿C:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\GenerateQR.Tests\HomeHelperTests.cs
+C:\Users\admin\Desktop\Devsecops_A3\GenerateQR\GenerateQR_v3\GenerateQR\GenerateQR.Tests\UnitTest1.cs
+C:\Users\admin\.nuget\packages\microsoft.net.test.sdk\17.13.0\build\netcoreapp3.1\Microsoft.NET.Test.Sdk.Program.cs
+C:\Users\admin\.nuget\packages\microsoft.testplatform.testhost\17.13.0\build\netcoreapp3.1\x64\testhost.exe
+C:\Users\admin\.nuget\packages\microsoft.testplatform.testhost\17.13.0\build\netcoreapp3.1\x64\testhost.dll
+C:\Users\admin\.nuget\packages\xunit.runner.visualstudio\3.0.2\build\net6.0\xunit.abstractions.dll
+C:\Users\admin\.nuget\packages\xunit.runner.visualstudio\3.0.2\build\net6.0\xunit.runner.visualstudio.testadapter.dll
